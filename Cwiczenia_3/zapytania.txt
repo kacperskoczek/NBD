@@ -1,0 +1,44 @@
+1.
+MATCH (movie:Movie)
+ RETURN movie
+
+2.
+MATCH (m:Movie)<-[:ACTED_IN]-(a:Person)
+ WHERE a.name='Hugo Weaving'
+ RETURN m
+
+3.
+MATCH (hugo { name: 'Hugo Weaving' })-[:ACTED_IN]->(movie)<-[:DIRECTED]-(director)
+ RETURN DISTINCT director
+
+4.
+MATCH (hugo { name: 'Hugo Weaving' })-[:ACTED_IN]->(movie)<-[:ACTED_IN]-(actor)
+ RETURN DISTINCT actor
+
+5.
+MATCH (matrix {title: 'The Matrix' })<-[:ACTED_IN]-(actor)-[:ACTED_IN]-(movie)
+ RETURN DISTINCT movie
+
+6.
+MATCH (person:Person)<-[p:ACTED_IN]->(movie:Movie)
+ RETURN person, count(movie)
+
+7.
+MATCH (p:Person)-[:WROTE]->(m:Movie),(p)-[:DIRECTED]->(m:Movie)
+ RETURN p, m.title
+
+8.
+MATCH (hugo { name: 'Hugo Weaving' })-[:ACTED_IN]->(movie)<-[:ACTED_IN]-(a:Person)
+WHERE a.name = 'Keanu Reeves'
+ RETURN movie
+
+9.
+CREATE (joe:Person { name:'Joe Johnston', born:1950})-[:DIRECTED]->(m:Movie {title:'Captain America: The First Avenger', tagline:'Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a "Super-Soldier serum".', released:2011})<-[:WROTE]-(christopher:Person { name: 'Christopher Marcus', born:1970 }),(steve:Person { name: 'Stephen McFeely', born:1969 })-[:WROTE]->(m)<-[:ACTED_IN]-(chris:Person {name: 'Chris Evans', born:1981})
+
+MATCH (p:Person), (m:Movie)
+WHERE p.name = 'Hugo Weaving' AND m.title = 'Captain America: The First Avenger'
+CREATE (p)-[r:ACTED_IN]->(m)<-[:ACTED_IN]-(sam:Person{name:'Samuel L.Jackson', born:1948})
+RETURN type(r)
+
+MATCH (m:Movie {title: 'Captain America: The First Avenger'})-[r]-(b)
+RETURN r, m, b

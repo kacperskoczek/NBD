@@ -1,0 +1,64 @@
+1.
+MATCH (dar:town {name: 'Darjeeling' }),(s:peak { name: 'Sandakphu'}), p = allShortestPaths((dar)-[*]-(s))
+RETURN p
+
+2.
+MATCH (dar:town {name: 'Darjeeling' }),(s:peak { name: 'Sandakphu'}), p = allShortestPaths((dar)-[*]-(s))
+WHERE NONE (r IN relationships(p) WHERE r.winter = false)
+RETURN p
+
+3.
+MATCH p=((m:town {name: 'Darjeeling' })-[*]->(n:peak{name:"Sandakphu"}))
+WITH *, relationships(p) AS r
+RETURN DISTINCT p, REDUCE(start=0, d in r | start + d.distance) AS distance
+ORDER BY distance DESC
+
+4. zwraca pusty wynik
+MATCH p=((m:town {name: 'Darjeeling' })-[:twowheeler*]->(a))
+WHERE ALL(x IN relationships(p) WHERE x.summer = 'true')
+RETURN a
+
+5.
+MATCH (a:Airport)-[r:ORIGIN]
+RETURN a, COUNT(r) as total
+ORDER BY total DESC
+
+6.
+MATCH p = (la:Airport { name:"LAX" })<-[:ORIGIN|DESTINATION*..4]->(d:Airport)
+WITH *, relationships(p) AS r
+WHERE REDUCE(price = 0, n IN [x IN NODES(p) WHERE 'Flight' IN LABELS(x)] |
+    price + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]
+  ) < 3000
+RETURN d
+
+7.
+MATCH p = (la:Airport { name:"LAX" })<-[:ORIGIN|DESTINATION*..8]->(d:Airport{name:"DAY"})
+WITH *, relationships(p) AS r, REDUCE(price = 0, n IN [x IN NODES(p) WHERE 'Flight' IN LABELS(x)] |
+       price + [(n)<-[:ASSIGN]-(ticket:Ticket {class:"economy"}) | ticket.price][0]
+      ) AS total_price
+RETURN p, total_price
+ORDER BY total_price ASC
+
+8.
+MATCH p = (la:Airport { name:"LAX" })<-[:ORIGIN|DESTINATION*..8]->(d:Airport{name:"DAY"})
+WITH *, relationships(p) AS r, REDUCE(price = 0, n IN [x IN NODES(p) WHERE 'Flight' IN LABELS(x)] |
+    price + [(n)<-[:ASSIGN]-(ticket:Ticket {class:"economy"}) | ticket.price][0]
+  ) AS total_price
+RETURN p
+ORDER BY total_price ASC
+LIMIT 1
+
+9.
+MATCH (n:Flight)-[r:ORIGIN|DESTINATION]-(a:Airport)
+RETURN n.airline AS airline, COUNT(DISTINCT a) AS total_airports
+ORDER BY total_airports DESC
+
+10.
+MATCH p = (la:Airport)<-[:ORIGIN|DESTINATION*..5]->(m:Airport)<-[:ORIGIN|DESTINATION*2]->(d:Airport)
+WITH *, relationships(p) AS r, REDUCE(price = 0, n IN [x IN NODES(p) WHERE 'Flight' IN LABELS(x)] |
+    price + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]
+  ) AS total_price
+WHERE la<>d
+RETURN p, total_price
+ORDER BY total_price ASC
+LIMIT 1
