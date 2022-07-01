@@ -1,0 +1,33 @@
+1.
+curl -XPOST -i -H "Content-Type: application/json" -d '{"name": "Jan Kowalski", "nationality": "Poland", "age": 35, "married": true}' http://172.17.0.2:8098/buckets/s15532/keys/Jan
+curl -XPOST -i -H "Content-Type: application/json" -d '{"name": "Robert Lewandowski", "nationality": "Poland", "age": 33, "married": true}' http://172.17.0.2:8098/buckets/s15532/keys/Robert
+curl -XPOST -i -H "Content-Type: application/json" -d '{"name": "Iga Swiatek", "nationality": "Poland", "age": 21, "married": false}' http://172.17.0.2:8098/buckets/s15532/keys/Iga
+curl -XPOST -i -H "Content-Type: application/json" -d '{"name": "Rafa Nadal", "nationality": "Spain", "age": 43, "married": true}' http://172.17.0.2:8098/buckets/s15532/keys/Rafa
+curl -XPOST -i -H "Content-Type: application/json" -d '{"name": "Michael Jordan", "nationality": "USA", "age": 50, "married": false}' http://172.17.0.2:8098/buckets/s15532/keys/Michael
+
+2.
+curl -i http://172.17.0.2:8098/buckets/s15532/keys/Jan
+
+3.
+curl -XPUT -i -H "Content-Type: application/json" -d '{"name": "Jan Kowalski", "nationality": "Poland", "age": 35, "married": true, "height": 185}' http://172.17.0.2:8098/buckets/s15532/keys/Jan
+
+4.
+curl -XPUT -i -H "Content-Type: application/json" -d '{"name": "Jan Kowalski", "nationality": "Poland", "age": 35, "height": 185}' http://172.17.0.2:8098/buckets/s15532/keys/Jan
+
+5.
+curl -XPUT -i -H "Content-Type: application/json" -d '{"name": "Jan Malinowski", "nationality": "Poland", "age": 35, "height": 185}' http://172.17.0.2:8098/buckets/s15532/keys/Jan
+
+6.
+curl -i -XDELETE http://172.17.0.2:8098/buckets/s15532/keys/Rafa
+
+7.
+curl -i http://172.17.0.2:8098/buckets/s15532/keys/Adam
+
+8.
+curl -XPOST -i -H "Content-Type: application/json" -d '{"name": "Kacper Skoczek"}' http://172.17.0.2:8098/buckets/s15532/keys/
+
+9.
+curl -i http://172.17.0.2:8098/buckets/s15532/keys/TrGzsZn0WICXWUG6WxLYWoDJum
+
+10.
+curl -i -XDELETE http://172.17.0.2:8098/buckets/s15532/keys/TrGzsZn0WICXWUG6WxLYWoDJum

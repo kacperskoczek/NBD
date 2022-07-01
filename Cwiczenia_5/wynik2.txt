@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvk+X1DaFCCUy5rEyyG8zvsOXBQA=
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Link: </buckets/s15532>; rel="up"
+Last-Modified: Fri, 01 Jul 2022 18:17:03 GMT
+ETag: "4MFcSy2PsVkpx8491Jdul4"
+Date: Fri, 01 Jul 2022 18:19:01 GMT
+Content-Type: application/json
+Content-Length: 77
+
+{"name": "Jan Kowalski", "nationality": "Poland", "age": 35, "married": true}

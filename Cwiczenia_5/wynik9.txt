@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvk+XfHoUIpTImMfK4LDD+A5fFgA=
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Link: </buckets/s15532>; rel="up"
+Last-Modified: Fri, 01 Jul 2022 18:26:08 GMT
+ETag: "6WsfmTIUs5DKZdGjU4weuC"
+Date: Fri, 01 Jul 2022 18:27:08 GMT
+Content-Type: application/json
+Content-Length: 26
+
+{"name": "Kacper Skoczek"}
